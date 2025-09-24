@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Registry System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>LandRegistry</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="#registration" class="nav-link">Registration</a></li>
+                <li class="nav-item"><a href="#search" class="nav-link">Search</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Modern Land Registration System</h1>
+            <p class="hero-subtitle">Secure, transparent, and efficient land registration for the digital age</p>
+            <div class="hero-buttons">
+                <a href="#registration" class="btn btn-primary">Register Property</a>
+                <a href="#search" class="btn btn-secondary">Search Records</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card" id="card1">
+                <h3>Property Deed</h3>
+                <p>Document ID: LR-2023-5842</p>
+            </div>
+            <div class="floating-card" id="card2">
+                <h3>Land Survey</h3>
+                <p>Plot No: PS-45-B</p>
+            </div>
+            <div class="floating-card" id="card3">
+                <h3>Ownership Certificate</h3>
+                <p>Status: Verified</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="icon">📝</i>
+                    </div>
+                    <h3>New Registration</h3>
+                    <p>Register your land property with our streamlined digital process</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="icon">🔍</i>
+                    </div>
+                    <h3>Record Search</h3>
+                    <p>Access land records and ownership history with ease</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="icon">🔄</i>
+                    </div>
+                    <h3>Transfer Ownership</h3>
+                    <p>Securely transfer property ownership with digital verification</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="icon">📊</i>
+                    </div>
+                    <h3>Property Valuation</h3>
+                    <p>Get accurate property valuation based on market data</p>
+                    <a href="#" class="service-link">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section id="registration" class="registration">
+        <div class="container">
+            <h2 class="section-title">Property Registration</h2>
+            <div class="registration-container">
+                <form class="registration-form" id="regForm">
+                    <div class="form-step active" id="step1">
+                        <h3>Property Details</h3>
+                        <div class="form-group">
+                            <label for="propertyType">Property Type</label>
+                            <select id="propertyType" required>
+                                <option value="">Select Property Type</option>
+                                <option value="residential">Residential</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="agricultural">Agricultural</option>
+                                <option value="industrial">Industrial</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="propertyArea">Area (in sq. meters)</label>
+                            <input type="number" id="propertyArea" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="propertyAddress">Address</label>
+                            <textarea id="propertyAddress" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="propertyLocation">Location on Map</label>
+                            <div id="propertyMap" class="property-map"></div>
+                            <button type="button" id="locateMe" class="btn-locate">Use My Location</button>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn-next">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="step2">
+                        <h3>Owner Information</h3>
+                        <div class="form-group">
+                            <label for="ownerName">Full Name</label>
+                            <input type="text" id="ownerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerID">National ID</label>
+                            <input type="text" id="ownerID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerEmail">Email Address</label>
+                            <input type="email" id="ownerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ownerPhone">Phone Number</label>
+                            <input type="tel" id="ownerPhone" required>
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn-prev">Previous</button>
+                            <button type="button" class="btn-next">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" id="step3">
+                        <h3>Document Upload</h3>
+                        <div class="form-group">
+                            <label for="deedDocument">Property Deed</label>
+                            <input type="file" id="deedDocument" accept=".pdf,.jpg,.png" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="idDocument">ID Proof</label>
+                            <input type="file" id="idDocument" accept=".pdf,.jpg,.png" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="surveyDocument">Survey Document</label>
+                            <input type="file" id="surveyDocument" accept=".pdf,.jpg,.png">
+                        </div>
+                        <div class="form-navigation">
+                            <button type="button" class="btn-prev">Previous</button>
+                            <button type="submit" class="btn-submit">Submit Registration</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="registration-sidebar">
+                    <h3>Registration Progress</h3>
+                    <div class="progress-steps">
+                        <div class="progress-step active">
+                            <span class="step-number">1</span>
+                            <span class="step-label">Property Details</span>
+                        </div>
+                        <div class="progress-step">
+                            <span class="step-number">2</span>
+                            <span class="step-label">Owner Information</span>
+                        </div>
+                        <div class="progress-step">
+                            <span class="step-number">3</span>
+                            <span class="step-label">Document Upload</span>
+                        </div>
+                    </div>
+                    <div class="registration-tips">
+                        <h4>Tips for Successful Registration</h4>
+                        <ul>
+                            <li>Ensure all documents are clear and legible</li>
+                            <li>Double-check property measurements</li>
+                            <li>Have your identification documents ready</li>
+                            <li>Review all information before submission</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section id="search" class="search">
+        <div class="container">
+            <h2 class="section-title">Search Land Records</h2>
+            <div class="search-container">
+                <div class="search-options">
+                    <div class="search-tabs">
+                        <button class="tab-btn active" data-tab="property">By Property ID</button>
+                        <button class="tab-btn" data-tab="owner">By Owner Name</button>
+                        <button class="tab-btn" data-tab="location">By Location</button>
+                    </div>
+                    <div class="search-form">
+                        <div class="tab-content active" id="property-tab">
+                            <input type="text" placeholder="Enter Property ID (e.g., LR-2023-XXXX)" id="propertyIdSearch">
+                            <button class="btn-search">Search</button>
+                        </div>
+                        <div class="tab-content" id="owner-tab">
+                            <input type="text" placeholder="Enter Owner's Full Name" id="ownerNameSearch">
+                            <button class="btn-search">Search</button>
+                        </div>
+                        <div class="tab-content" id="location-tab">
+                            <input type="text" placeholder="Enter Address or Coordinates" id="locationSearch">
+                            <button class="btn-search">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-results" id="searchResults">
+                    <div class="results-placeholder">
+                        <h3>Search results will appear here</h3>
+                        <p>Enter your search criteria to find land records</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About LandRegistry</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>LandRegistry is a modern, digital platform designed to streamline the land registration process. Our system ensures transparency, security, and efficiency in managing land records.</p>
+                    <p>With advanced features like 3D visualization, interactive maps, and secure document handling, we're revolutionizing how properties are registered and managed.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>50,000+</h3>
+                            <p>Properties Registered</p>
+                        </div>
+                        <div class="stat">
+                            <h3>99.8%</h3>
+                            <p>Accuracy Rate</p>
+                        </div>
+                        <div class="stat">
+                            <h3>24/7</h3>
+                            <p>System Availability</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="floating-elements">
+                        <div class="floating-element" id="elem1"></div>
+                        <div class="floating-element" id="elem2"></div>
+                        <div class="floating-element" id="elem3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-item">
+                        <i class="contact-icon">📍</i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Land Registry Building,<br>Capital City, Country 10001</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="contact-icon">📞</i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="contact-icon">✉️</i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@landregistry.gov</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="contact-icon">🕒</i>
+                        <div>
+                            <h4>Office Hours</h4>
+                            <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LandRegistry</h3>
+                    <p>Secure, transparent, and efficient land registration for the digital age.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#registration">Registration</a></li>
+                        <li><a href="#search">Search</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 LandRegistry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Search Results -->
+    <div id="resultModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
